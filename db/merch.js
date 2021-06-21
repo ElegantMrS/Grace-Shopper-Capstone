@@ -25,6 +25,20 @@ async function getAllMerchandise() {
     }
 }
 
+async function getMerchandiseByCategory(category) {
+    try {
+        const { rows: products } = await client.query(`
+        SELECT * FROM merchandise
+        WHERE cats = $1;
+        `, [category])
+
+        return products;
+        
+    } catch (error) {
+        throw error;
+    }
+}
+
 async function getMerchandiseByName(merchName) {
     const { rows: [merchandise] } = await client.query(`
         SELECT * FROM merchandise

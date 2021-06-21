@@ -14,12 +14,20 @@ import {
 } from 'react-router-dom';
 
 import {
-    Navbar,
+    AppBarHeader,
     Menu,
+    HomePage,
     ProductCard,
     ProductPage,
+    ContemporaryPage,
+    CubismPage,
+    PopartPage,
+    ImpressionismPage,
+    PostImpressPage,
+    Cart,
     Login,
-    Register
+    Register,
+    Checkout
 } from './components/index';
 
 const App = () => {
@@ -36,6 +44,8 @@ const App = () => {
     const [merchandise, setMerchandise] = useState([]);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
     const [userToken, setUserToken] = useState('');
     const [loggedIn, setLoggedIn] = useState('');
 
@@ -45,16 +55,26 @@ const App = () => {
             <CssBaseline>
                 <Router className={classes.root}>
                     <div className="app" 
-                    style={{ padding: '20px'   
+                    style={{ margin: '20px'   
                     }}
                     >
-                <Navbar/>
+                <AppBarHeader/>
+                    <Route exact path="/">
+                        <HomePage
+                            merchandise={merchandise}
+                            setMerchandise={setMerchandise}
+                        />
+                    </Route>
                     <Route exact path="/register">
                         <Register 
                             username={username}
                             setUsername={setUsername}
                             password={password}
                             setPassword={setPassword}
+                            firstName={firstName}
+                            setFirstName={setFirstName}
+                            lastName={lastName}
+                            setLastName={setLastName}
                             userToken={userToken}
                             setUserToken={setUserToken}
                             setLoggedIn={setLoggedIn}
@@ -68,6 +88,39 @@ const App = () => {
                             setMerchandise={setMerchandise}
                         />
                     </Route>
+                    <Route exact path="/merchandise/contemporary">
+                        <ContemporaryPage
+                            merchandise={merchandise}
+                            setMerchandise={setMerchandise}
+                        />
+                    </Route>
+                    <Route exact path="/merchandise/cubism">
+                        <CubismPage
+                            merchandise={merchandise}
+                            setMerchandise={setMerchandise}
+                        />
+                    </Route>
+                    <Route exact path="/merchandise/popart">
+                        <PopartPage
+                            merchandise={merchandise}
+                            setMerchandise={setMerchandise}
+                        />
+                    </Route>
+                    <Route exact path="/merchandise/impressionism">
+                        <ImpressionismPage
+                            merchandise={merchandise}
+                            setMerchandise={setMerchandise}
+                        />
+                    </Route>
+                    <Route exact path="/merchandise/post-impressionalism">
+                        <PostImpressPage
+                            merchandise={merchandise}
+                            setMerchandise={setMerchandise}
+                        />
+                    </Route>
+                    <Route exact path="/cart">
+                        <Cart />
+                    </Route>
                     <Route exact path="/login">
                         <Login 
                             username={username}
@@ -80,6 +133,9 @@ const App = () => {
                             setLoggedIn={setLoggedIn}
                             history={history}
                         />
+                    </Route>
+                    <Route exact path="/checkout">
+                        <Checkout />
                     </Route>
                     </div>
                 </Router>

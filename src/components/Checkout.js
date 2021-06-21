@@ -1,10 +1,10 @@
-// Rob, Joe
+// Joe
 
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
+// import AppBar from '@material-ui/core/AppBar';
+// import Toolbar from '@material-ui/core/Toolbar';
 import Paper from '@material-ui/core/Paper';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
@@ -21,7 +21,7 @@ function Copyright() {
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+        JJRt Collection
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -82,6 +82,8 @@ function getStepContent(step) {
 }
 
 export default function Checkout() {
+
+
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
 
@@ -93,16 +95,18 @@ export default function Checkout() {
     setActiveStep(activeStep - 1);
   };
 
+  let cartItems = [];
+    
+  if (localStorage.getItem('cartItems')) {
+      cartItems = JSON.parse(localStorage.getItem('cartItems'));
+  }
+  
+  console.log(cartItems);
+
+
   return (
     <React.Fragment>
       <CssBaseline />
-      <AppBar position="absolute" color="default" className={classes.appBar}>
-        <Toolbar>
-          <Typography variant="h6" color="inherit" noWrap>
-            Company name
-          </Typography>
-        </Toolbar>
-      </AppBar>
       <main className={classes.layout}>
         <Paper className={classes.paper}>
           <Typography component="h1" variant="h4" align="center">

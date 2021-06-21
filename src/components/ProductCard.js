@@ -13,11 +13,13 @@ import Typography from '@material-ui/core/Typography';
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
+    height: 'max-content'
   },
   media: {
     height: 140,
   },
 });
+
 
 const ProductCard = (props) => {
 
@@ -25,32 +27,53 @@ const ProductCard = (props) => {
 
     const classes = useStyles();
 
+    const addItemToCart = async (product) => {
+
+        let cartItems = [];
+    
+        if (localStorage.getItem('cartItems')) {
+            cartItems = JSON.parse(localStorage.getItem('cartItems'));
+        }
+        cartItems.push({
+            artist: product.artist,
+            cats: product.cats,
+            'img_url': product.img_url,
+            'merch_id': product.merch_id,
+            name: product.name,
+            price: product.price,
+            rating: product.rating
+        });
+        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+        console.log(cartItems);
+    }
+
+
     return (
         <Card className={classes.root}>
         <CardActionArea>
             <CardMedia
             className={classes.media}
             image={product.img_url}
-            title="Contemplative Reptile"
+            title={product.name}
             />
             <CardContent>
-            <Typography gutterBottom variant="h5" component="h2">
+            <Typography gutterBottom constiant="h5" component="h2">
                 {product.name}
             </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
+            <Typography constiant="body2" color="textSecondary" component="p">
                 {product.artist}
             </Typography>
             
             </CardContent>
         </CardActionArea>
         <CardActions>
-            <Button size="small" color="primary">
-            Purchase
+            <Button type="" size="small" color="primary" onClick={() => addItemToCart(product)} >
+            Add to Collection
             </Button>
             <Button size="small" color="primary">
             Learn More
             </Button>
-            <Typography variant="body2" color="textSecondary" component="p" >
+            <Typography constiant="body2" color="textSecondary" component="p" >
                 {product.price}
             </Typography>
         </CardActions>
@@ -58,4 +81,13 @@ const ProductCard = (props) => {
     );
     }
 
+    // const onSubmit = (e) => {e => 
+    //     e.preventDefault();
+    //     console.log(postTitle, loginToken);
+    //     localStorage.getItem(`${loginToken}`);
+    //     createPost({loginToken, postTitle, postDescription, postPrice, postLocation, willDeliver, postId});
+    //     alert('Added to cart');
+    //   } 
+
 export default ProductCard;
+

@@ -22,6 +22,15 @@ server.use(morgan('dev'));
 const bodyParser = require('body-parser');
 server.use(bodyParser.json());
 
+
+// NPM I --SAVE CORS - THEN THESE: FIX FROM STACK OVERFLOW - REMOVE AND UNINSTALL CORS IF BREAKS
+// const cors = require('cors');
+// server.use(cors({
+//     origin: "http://localhost:3000",
+//     credentials: true,
+//   }));
+
+
 // server.use(bodyParser.urlencoded({ extended: true }));
 // server.use(express.json());
 

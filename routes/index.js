@@ -5,6 +5,7 @@ const apiRouter = express.Router();
 
 const {
     getAllMerchandise,
+    getMerchandiseByCategory,
     createMerchandise,
     searchMerchandise,
     getMerchandiseById,
@@ -14,6 +15,16 @@ const {
 } = require('../db')
 
 // Merchandise Router
+
+apiRouter.get('/', async (req, res, next) => {
+    try {
+        const merchandise = await getAllMerchandise()
+
+        res.send(merchandise)
+    } catch (error) {
+        throw error;
+    }
+})
 
 apiRouter.get('/merchandise', async (req, res, next) => {
     try {
@@ -50,6 +61,94 @@ apiRouter.post('/merchandise', async (req, res, next) => {
     }
 
 })
+
+/***************************************************************************** 6/2 */
+
+apiRouter.get('/merchandise/contemporary', async (req, res, next) => {
+
+
+    try {
+        const category = 'Contemporary'
+        const merchandise = await getMerchandiseByCategory(category)
+
+        res.send(merchandise)
+
+    } catch (error) {
+        throw error;
+    }
+})
+
+apiRouter.get('/merchandise/cubism', async (req, res, next) => {
+
+
+    try {
+        const category = 'Cubism'
+        const merchandise = await getMerchandiseByCategory(category)
+
+        res.send(merchandise)
+
+    } catch (error) {
+        throw error;
+    }
+})
+
+apiRouter.get('/merchandise/popart', async (req, res, next) => {
+
+
+    try {
+        const category = 'Popart'
+        const merchandise = await getMerchandiseByCategory(category)
+
+        res.send(merchandise)
+
+    } catch (error) {
+        throw error;
+    }
+})
+
+apiRouter.get('/merchandise/impressionism', async (req, res, next) => {
+
+
+    try {
+        const category = 'Impressionism'
+        const merchandise = await getMerchandiseByCategory(category)
+
+        res.send(merchandise)
+
+    } catch (error) {
+        throw error;
+    }
+})
+
+apiRouter.get('/merchandise/post-impressionalism', async (req, res, next) => {
+
+
+    try {
+        const category = 'PostImpressionalism'
+        const merchandise = await getMerchandiseByCategory(category)
+
+        res.send(merchandise)
+
+    } catch (error) {
+        throw error;
+    }
+})
+
+// apiRouter.get('/merchandise/contemporary', async (req, res, next) => {
+
+
+//     try {
+//         const { category } = req.params;
+//         const merchandise = await getMerchandiseByCategory(category)
+
+//         res.send(merchandise)
+
+//     } catch (error) {
+//         throw error;
+//     }
+// })
+
+/***************************************************************************** 6/2 */
 
 apiRouter.post('/search', async (req, res, next) => {
     console.log('Entered POST /search');
@@ -107,80 +206,99 @@ apiRouter.get('/search/:merchId', async (req, res, next) => {
 
 // Users Router
 
+// apiRouter.post('/register', async (req, res, next) => {
+//     const {
+//         username,
+//         password,
+//         firstname,
+//         lastname,
+//         street,
+//         city,
+//         state,
+//         zip,
+//         save_pmt,
+//         shipping
+//     } = req.body;
+
+//     console.log('Req.body: ', req.body);
+
+//     const SALT_COUNT = 10;
+
+//     try {
+//         const _user = await getUserByUsername(username);
+//         if (_user) {
+//             next({
+//                 name: 'UserExistsError',
+//                 message: 'A user by that username already exists',
+//                 status: 'UserExists'
+//             });
+//         };
+//         if (password.length < 8) {
+//             next({
+//                 name: 'PasswordTooShort',
+//                 message: 'Password must be at least 8 characters',
+//                 status: 'PasswordShort'
+//             })
+//             return;
+//         };
+//         bcrypt.hash(password, SALT_COUNT, async function (err, hashedPassword) {
+//             const user = await createUser({
+//                 username,
+//                 password: hashedPassword,
+//                 firstname,
+//                 lastname,
+//             });
+//             const token = jwt.sign({
+//                 id: user.user_id,
+//                 username
+//             }, process.env.JWT_SECRET, {
+//                 expiresIn: '1w'
+//             });
+//             console.log("TOKEN", token);
+//             console.log('Create user preferences values: ', { userId: user.user_id 
+//                 , street, city, state, zip, save_pmt, shipping 
+//             })
+//             const userPreferences = await createUserPreferences({
+//                 userId: user.user_id,
+//                 street,
+//                 city,
+//                 state,
+//                 zip,
+//                 save_pmt,
+//                 shipping
+//             });
+//             console.log('New User Preference: ', userPreferences);
+//             user.userPreferences = userPreferences;
+//             delete user.password
+//             console.log('New User: ', user);
+//             res.send({
+//                 message: "Thank you for signing up!",
+//                 user,
+//                 token,
+//                 status: true
+//             });
+//         });
+//     } catch ({ name, message }) {
+//         next({ name, message })
+//     }
+// });
+
 apiRouter.post('/register', async (req, res, next) => {
-    const {
-        username,
-        password,
-        firstname,
-        lastname,
-        street,
-        city,
-        state,
-        zip,
-        save_pmt,
-        shipping
-    } = req.body;
 
-    console.log('Req.body: ', req.body);
-
-    const SALT_COUNT = 10;
+    const { firstName, lastName, username, password } = req.body;
 
     try {
-        const _user = await getUserByUsername(username);
-        if (_user) {
-            next({
-                name: 'UserExistsError',
-                message: 'A user by that username already exists',
-                status: 'UserExists'
-            });
-        };
-        if (password.length < 8) {
-            next({
-                name: 'PasswordTooShort',
-                message: 'Password must be at least 8 characters',
-                status: 'PasswordShort'
-            })
-            return;
-        };
-        bcrypt.hash(password, SALT_COUNT, async function (err, hashedPassword) {
-            const user = await createUser({
-                username,
-                password: hashedPassword,
-                firstname,
-                lastname,
-            });
-            const token = jwt.sign({
-                id: user.user_id,
-                username
-            }, process.env.JWT_SECRET, {
-                expiresIn: '1w'
-            });
-            console.log("TOKEN", token);
-            console.log('Create user preferences values: ', { userId: user.user_id, street, city, state, zip, save_pmt, shipping })
-            const userPreferences = await createUserPreferences({
-                userId: user.user_id,
-                street,
-                city,
-                state,
-                zip,
-                save_pmt,
-                shipping
-            });
-            console.log('New User Preference: ', userPreferences);
-            user.userPreferences = userPreferences;
-            delete user.password
-            console.log('New User: ', user);
-            res.send({
-                message: "Thank you for signing up!",
-                user,
-                token,
-                status: true
-            });
-        });
-    } catch ({ name, message }) {
-        next({ name, message })
+        // moved the destructuring to above (outside try catch)
+        // console.log('Req.body: ', req.body);
+
+        const newUserProfile = await createUser( firstName, lastName, username, password )
+        console.log(newUserProfile)
+        res.send(newUserProfile);
+        
+    } catch (error) {
+        next (error)
     }
-});
+})
 
 apiRouter.post('/login', async (req, res, next) => {
 
@@ -223,5 +341,15 @@ apiRouter.post('/login', async (req, res, next) => {
         next(error);
     }
 });
+
+apiRouter.get('/checkout', async (req, res, next) => {
+    const {} = req.body;
+
+    try {
+    } catch (error) {
+        throw (error)
+    }
+})
+
 
 module.exports = apiRouter;

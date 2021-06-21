@@ -96,7 +96,7 @@ async function createTables() {
                 artist TEXT,
                 price MONEY NOT NULL,
                 rating INTEGER,
-                cats INTEGER REFERENCES categories(cat_id)
+                cats TEXT
             );
         `);
 
@@ -201,36 +201,36 @@ async function createInitialMerchandise() {
       console.log('Starting to create merchandise...');
   
       const merchandiseToCreate = [
-        { img: `https://chairish-prod.freetls.fastly.net/image/product/sized/5d247484-3849-470a-98f2-ecb1e72bdc56/1943-original-picasso-femme-dans-un-fauteuil-lithograph-7268?aspect=fit&width=1600&height=1600`, name: 'FemmeDansUnFauteuil', category: 'Cubism', artist: '1943 Original Picasso Lithograph.', price: '1025', rating: '10' },
-        { img: `https://www.tate.org.uk/art/images/work/T/T05/T05010_10.jpg`, name: 'Weeping Woman', category: 'Cubism', artist: 'Old Master Signed Picasso 1962', price: '2542', rating: '10' },
-        { img: `http://paintingandframe.com/art-imgs/juan_gris/figure_of_a_woman-6178.jpg`, name: 'Figure of a Woman', category: 'Cubism', artist: 'Juan Gris.', price: '132', rating: '8' },
-        { img: `https://i.imgur.com/55cRyMW.jpg`, name: 'Three Women', category: 'Cubism', artist: 'FernandLeger', price: '108', rating: '6' },
-        { img: `https://i.imgur.com/vZnJhWj.jpg`, name: 'The Knife Grinder', category: 'Cubism', artist: 'KazimirSeverinovichMalevich', price: '101', rating: '10' },
-        { img: `https://i.imgur.com/fVJMWeU.jpg`, name: 'Symphony', category: 'Cubism', artist: 'Michail Menkov', price: '101', rating: '9' },
-        { img: `https://i.imgur.com/ANt7SdY.jpg`, name: 'The Confetti Garden', category: 'Impressionism', artist: 'Jinlu', price: '1976', rating: '8' },
-        { img: `https://i.imgur.com/3dzVMcH.jpg`, name: 'Impressionist Lake Scene', category: 'Impressionism', artist: 'John Clymer', price: '975', rating: '10' },
-        { img: `https://i.imgur.com/XMLtXHc.jpg`, name: 'Impressionist French Landscape', category: 'Impressionism', artist: 'Unknown', price: '750', rating: '7' },
-        { img: `https://i.imgur.com/e6VBJ35.jpg`, name: 'Spring in Central Park', category: 'Impressionism', artist: 'Natasha Kramskaya', price: '725', rating: '10' },
-        { img: `https://i.imgur.com/XTUfn8P.jpg`, name: 'Signed Original Street Scene Paris', category: 'Impressionism', artist: 'Unknown', price: '695', rating: '9' },
-        { img: `https://i.imgur.com/QrkyVTP.jpg`, name: 'Floral Landscape Flower Fields IV', category: 'Impressionism', artist: 'Michael Budden', price: '600', rating: '10' },
-        { img: `https://ik.imagekit.io/theartling/p/products/Product/97702d17a693459189d57a139990de2c.png`, name: 'Cash Owns Everything Around Me', category: 'Popart', artist: 'ResatioAdiPutra', price: '250', rating: '10' },
-        { img: `https://ik.imagekit.io/theartling/p/products/Product/9101370e619244749ddeb8fe237247ce.jpg?tr=cm-pad_resize,w-1072,h-1072,bg-FFFFFF`, name: 'Massive Stars Collapse III', category: 'Popart', artist: 'ResatioAdiPutra', price: '58', rating: '8' },
-        { img: `https://ik.imagekit.io/theartling/p/products/Product/1cab7371a0da4759b29a83645d899690.jpg?tr=cm-pad_resize,w-1072,h-1072,bg-FFFFFF`, name: 'PissOff', category: 'Popart', artist: 'JirapatTatsanasomboon', price: '13000', rating: '10' },
-        { img: `https://ik.imagekit.io/theartling/p/products/Product/bd346e519f8841d29e844463e272ca58.jpeg?tr=cm-pad_resize,w-1072,h-1072,bg-FFFFFF`, name: 'DesireIngrained', category: 'Popart', artist: 'JirapatTatsanasomboon', price: '13000', rating: '9' },
-        { img: `https://i.pinimg.com/originals/a8/a3/04/a8a3047e0985825ff3c30efd1acfeda1.png`, name: 'SilaturahmiGorillaGlass', category: 'Popart', artist: 'HendraHeheHarsono', price: '3000', rating: '7' },
-        { img: `https://ik.imagekit.io/theartling/p/artworks/Hendra_Hehe_Harsono_CapitalNoise.jpg?tr=cm-pad_resize,w-1072,h-1072,bg-FFFFFF`, name: 'CapitalNoise', category: 'Popart', artist: 'HendraHeheHarsono', price: '5000', rating: '10' },
-        { img: `https://i.imgur.com/qRwj1Sq.jpg`, name: 'The River Seine', category: 'PostImpressionalism', artist: 'Adolph Clary Baroux', price: '28500', rating: '9' },
-        { img: `https://i.imgur.com/cfLkUpf.jpg`, name: 'Ballerinas Paris Opera', category: 'PostImpressionalism', artist: 'Jean Louis Marcel Cosson', price: '13605', rating: '10' },
-        { img: `https://i.imgur.com/wZ0kJ65.jpg`, name: 'Early Morning Hyde Park London', category: 'PostImpressionalism', artist: 'Elliott Seabrooke', price: '7396', rating: '7' },
-        { img: `https://i.imgur.com/3nB1NrO.jpg`, name: 'Cafe Porto Fino Italy', category: 'PostImpressionalism', artist: 'Forrest Hewit', price: '5973', rating: '10' },
-        { img: `https://i.imgur.com/cEwoIwJ.jpg`, name: 'Village in Mexico', category: 'PostImpressionalism', artist: 'JacquesZucker', price: '5250', rating: '9' },
-        { img: `https://i.imgur.com/rgROuVZ.jpg`, name: 'Rural Farm Scene', category: 'PostImpressionalism', artist: 'Ludvig Jaconbsen', price: '4800', rating: '10' },
-        { img: `https://i.imgur.com/NTgAzLHh.jpg`, name: 'True Story', category: 'Contemporary', artist: 'A Contemporary Artpiece.', price: '675', rating: '10' },
-        { img: `https://i.imgur.com/8WWncJM.jpg`, name: 'Celebration', category: 'Contemporary', artist: 'A Contemporary Artpiece.', price: '649', rating: '6' },
-        { img: `https://i.imgur.com/hAYx7R8.jpg`, name: 'Envisioning', category: 'Contemporary', artist: 'A Contemporary Artpiece.', price: '659', rating: '8' },
-        { img: `https://i.imgur.com/cZOxU1b.jpg`, name: 'Safe and Sound', category: 'Contemporary', artist: 'A Contemporary Artpiece.', price: '685', rating: '5' },
-        { img: `https://i.imgur.com/WZNpYSy.jpg`, name: 'Zone 1', category: 'Contemporary', artist: 'A Contemporary Artpiece.', price: '166', rating: '9' },
-        { img: `https://i.imgur.com/JC3k8yp.jpg`, name: `You Can't Keep Spring From Coming`, category: 'Contemporary', artist: 'A Contemporary Artpiece.', price: '399', rating: '7' }
+        { img: `https://chairish-prod.freetls.fastly.net/image/product/sized/5d247484-3849-470a-98f2-ecb1e72bdc56/1943-original-picasso-femme-dans-un-fauteuil-lithograph-7268?aspect=fit&width=1600&height=1600`, name: 'FemmeDansUnFauteuil', artist: '1943 Original Picasso Lithograph.', price: '1025', rating: '10', cat: 'Cubism' },
+        { img: `https://www.tate.org.uk/art/images/work/T/T05/T05010_10.jpg`, name: 'Weeping Woman', artist: 'Old Master Signed Picasso 1962', price: '2542', rating: '10', cat: 'Cubism' },
+        { img: `http://paintingandframe.com/art-imgs/juan_gris/figure_of_a_woman-6178.jpg`, name: 'Figure of a Woman', artist: 'Juan Gris.', price: '132', rating: '8', cat: 'Cubism' },
+        { img: `https://i.imgur.com/55cRyMW.jpg`, name: 'Three Women', artist: 'FernandLeger', price: '108', rating: '6', cat: 'Cubism' },
+        { img: `https://i.imgur.com/vZnJhWj.jpg`, name: 'The Knife Grinder', artist: 'KazimirSeverinovichMalevich', price: '101', rating: '10', cat: 'Cubism' },
+        { img: `https://i.imgur.com/fVJMWeU.jpg`, name: 'Symphony', artist: 'Michail Menkov', price: '101', rating: '9', cat: 'Cubism' },
+        { img: `https://i.imgur.com/ANt7SdY.jpg`, name: 'The Confetti Garden', artist: 'Jinlu', price: '1976', rating: '8', cat: 'Impressionism' },
+        { img: `https://i.imgur.com/3dzVMcH.jpg`, name: 'Impressionist Lake Scene', artist: 'John Clymer', price: '975', rating: '10', cat: 'Impressionism' },
+        { img: `https://i.imgur.com/XMLtXHc.jpg`, name: 'Impressionist French Landscape', artist: 'Unknown', price: '750', rating: '7', cat: 'Impressionism' },
+        { img: `https://i.imgur.com/e6VBJ35.jpg`, name: 'Spring in Central Park', artist: 'Natasha Kramskaya', price: '725', rating: '10', cat: 'Impressionism' },
+        { img: `https://i.imgur.com/XTUfn8P.jpg`, name: 'Signed Original Street Scene Paris', artist: 'Unknown', price: '695', rating: '9', cat: 'Impressionism' },
+        { img: `https://i.imgur.com/QrkyVTP.jpg`, name: 'Floral Landscape Flower Fields IV', artist: 'Michael Budden', price: '600', rating: '10', cat: 'Impressionism' },
+        { img: `https://ik.imagekit.io/theartling/p/products/Product/97702d17a693459189d57a139990de2c.png`, name: 'Cash Owns Everything Around Me', artist: 'ResatioAdiPutra', price: '250', rating: '10', cat: 'Popart' },
+        { img: `https://ik.imagekit.io/theartling/p/products/Product/9101370e619244749ddeb8fe237247ce.jpg?tr=cm-pad_resize,w-1072,h-1072,bg-FFFFFF`, name: 'Massive Stars Collapse III', artist: 'ResatioAdiPutra', price: '58', rating: '8', cat: 'Popart' },
+        { img: `https://ik.imagekit.io/theartling/p/products/Product/1cab7371a0da4759b29a83645d899690.jpg?tr=cm-pad_resize,w-1072,h-1072,bg-FFFFFF`, name: 'PissOff', artist: 'JirapatTatsanasomboon', price: '13000', rating: '10', cat: 'Popart' },
+        { img: `https://ik.imagekit.io/theartling/p/products/Product/bd346e519f8841d29e844463e272ca58.jpeg?tr=cm-pad_resize,w-1072,h-1072,bg-FFFFFF`, name: 'DesireIngrained', artist: 'JirapatTatsanasomboon', price: '13000', rating: '9', cat: 'Popart' },
+        { img: `https://i.pinimg.com/originals/a8/a3/04/a8a3047e0985825ff3c30efd1acfeda1.png`, name: 'SilaturahmiGorillaGlass', artist: 'HendraHeheHarsono', price: '3000', rating: '7', cat: 'Popart' },
+        { img: `https://ik.imagekit.io/theartling/p/artworks/Hendra_Hehe_Harsono_CapitalNoise.jpg?tr=cm-pad_resize,w-1072,h-1072,bg-FFFFFF`, name: 'CapitalNoise', artist: 'HendraHeheHarsono', price: '5000', rating: '10', cat: 'Popart' },
+        { img: `https://i.imgur.com/qRwj1Sq.jpg`, name: 'The River Seine', artist: 'Adolph Clary Baroux', price: '28500', rating: '9', cat: 'PostImpressionalism' },
+        { img: `https://i.imgur.com/cfLkUpf.jpg`, name: 'Ballerinas Paris Opera', artist: 'Jean Louis Marcel Cosson', price: '13605', rating: '10', cat: 'PostImpressionalism' },
+        { img: `https://i.imgur.com/wZ0kJ65.jpg`, name: 'Early Morning Hyde Park London', artist: 'Elliott Seabrooke', price: '7396', rating: '7', cat: 'PostImpressionalism' },
+        { img: `https://i.imgur.com/3nB1NrO.jpg`, name: 'Cafe Porto Fino Italy', artist: 'Forrest Hewit', price: '5973', rating: '10', cat: 'PostImpressionalism' },
+        { img: `https://i.imgur.com/cEwoIwJ.jpg`, name: 'Village in Mexico', artist: 'JacquesZucker', price: '5250', rating: '9', cat: 'PostImpressionalism' },
+        { img: `https://i.imgur.com/rgROuVZ.jpg`, name: 'Rural Farm Scene', artist: 'Ludvig Jaconbsen', price: '4800', rating: '10', cat: 'PostImpressionalism' },
+        { img: `https://i.imgur.com/NTgAzLHh.jpg`, name: 'True Story', artist: 'A Contemporary Artpiece.', price: '675', rating: '10', cat: 'Contemporary' },
+        { img: `https://i.imgur.com/8WWncJM.jpg`, name: 'Celebration', artist: 'A Contemporary Artpiece.', price: '649', rating: '6', cat: 'Contemporary' },
+        { img: `https://i.imgur.com/hAYx7R8.jpg`, name: 'Envisioning', artist: 'A Contemporary Artpiece.', price: '659', rating: '8', cat: 'Contemporary' },
+        { img: `https://i.imgur.com/cZOxU1b.jpg`, name: 'Safe and Sound', artist: 'A Contemporary Artpiece.', price: '685', rating: '5', cat: 'Contemporary' },
+        { img: `https://i.imgur.com/WZNpYSy.jpg`, name: 'Zone 1', artist: 'A Contemporary Artpiece.', price: '166', rating: '9', cat: 'Contemporary' },
+        { img: `https://i.imgur.com/JC3k8yp.jpg`, name: `You Can't Keep Spring From Coming`, artist: 'A Contemporary Artpiece.', price: '399', rating: '7', cat: 'Contemporary' }
       ]
       const merchandise = await Promise.all(merchandiseToCreate.map(createMerchandise));
   

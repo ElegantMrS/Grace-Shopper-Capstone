@@ -9,6 +9,10 @@ const Register = ({
   setUsername,
   password,
   setPassword,
+  firstName,
+  setFirstName,
+  lastName,
+  setLastName,
   userToken,
   setUserToken,
   setLoggedIn,
@@ -23,14 +27,17 @@ const Register = ({
     if (password !== passwordConfirmation) {
       alert("Passwords do not match");
     } else {
-      fetchApi(event);
+      onSubmitRegister(event);
     }
   };
 
-  const fetchApi = async (event) => {
+  const onSubmitRegister = async (event) => {
     event.preventDefault();
+
     try {
-      const data = await registerUser(username, password);
+      const data = await registerUser(username, password, firstName, lastName);
+      console.log(data)
+      
       if (data.error) {
         alert("Error Registering User");
       } else {
@@ -53,6 +60,22 @@ const Register = ({
     <div>
       <form className="form-style-8" onSubmit={confirmPasswords}>
         <h2>Register</h2>
+        <input
+          type="text"
+          minLength="2"
+          placeholder="First Name"
+          value={firstName}
+          onChange={(event) => setFirstName(event.target.value)}
+          required
+        />
+        <input
+          type="text"
+          minLength="2"
+          placeholder="Last Name"
+          value={lastName}
+          onChange={(event) => setLastName(event.target.value)}
+          required
+        />
         <input
           type="text"
           minLength="5"

@@ -3,7 +3,7 @@
 const client = require('./client_db');
 const { getPreferencesByUserId } = require('./userprefs');
 
-async function createUser({ username, password, firstname, lastname }) {
+async function createUser({username, password, firstname, lastname}) {
 
     try {
         const { rows: [ user ] } = await client.query(`

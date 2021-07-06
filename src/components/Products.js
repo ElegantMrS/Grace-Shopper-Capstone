@@ -90,7 +90,6 @@ const useStyles = makeStyles({
             console.log(cartItems);
         }
     
-        
           return (
             <div>
                 

@@ -20,8 +20,7 @@ const theme = createMuiTheme({
         MuiCssBaseline: {
           "@global": {
             body: {
-              backgroundImage:
-                "url(https://www.freepik.com/free-photo/young-beautiful-woman-bright-sportwear-isolated-gradient-pink-blue-background-neon-light_11689918.htm)"
+              background: '#323232'
             }
           }
         }
